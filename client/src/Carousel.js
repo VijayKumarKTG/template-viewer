@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import styles from './Carousel.module.css';
+import { SwitchTransition, CSSTransition } from 'react-transition-group';
+import './Carousel.css';
 import m7111 from './images/thumbnails/7111-m.jpg';
 import m7112 from './images/thumbnails/7112-m.jpg';
 import m7118 from './images/thumbnails/7118-m.jpg';
@@ -20,6 +21,7 @@ import next from './images/next.svg';
 
 export default function Carousel({ length, chooseFromThumbs }) {
   const [currentStep, setCurrentStep] = useState(0);
+  const [animate, setAnimate] = useState('next');
   const items = arrageData(length, [
     m7111,
     m7112,
@@ -40,12 +42,14 @@ export default function Carousel({ length, chooseFromThumbs }) {
 
   function clickPrevious() {
     if (currentStep > 0) {
+      setAnimate('prev');
       setCurrentStep(currentStep - 1);
     }
   }
 
   function clickNext() {
     if (items.length > currentStep + 1) {
+      setAnimate('next');
       setCurrentStep(currentStep + 1);
     }
   }
@@ -64,54 +68,60 @@ export default function Carousel({ length, chooseFromThumbs }) {
   }
 
   return (
-    <div className={styles.container}>
-      <div className={styles.carousel}>
-        <div className={styles.container}>
-          <div
-            className={`${styles.previous} ${
-              currentStep === 0 ? styles.disabled : null
-            }`}
-            onClick={clickPrevious}>
-            <img
-              src={previous}
-              alt='click this to view previous images'
-              className={styles.icon}
-            />
-          </div>
-          <div
-            className={`${styles.next} ${
-              currentStep === items.length - 1 ? styles.disabled : null
-            }`}
-            onClick={clickNext}>
-            <img
-              src={next}
-              alt='click this to view next images'
-              className={styles.icon}
-            />
-          </div>
+    <>
+      <div className='container' style={{ zIndex: 5 }}>
+        <div
+          className={`previous ${currentStep === 0 ? 'disabled' : null}`}
+          onClick={clickPrevious}>
+          <img
+            src={previous}
+            alt='click this to view previous images'
+            className='icon'
+          />
         </div>
-        <ul className={styles.items}>
-          {items.map((item, i) => {
-            let list = item.map((e, itemIndex) => (
-              <li
-                key={e}
-                className={styles.item}
-                onClick={() => chooseFromThumbs(length * i + itemIndex)}>
-                <img src={e} alt='a cat' className={styles.thumbnail} />
-              </li>
-            ));
-            return (
-              <div
-                className={`${styles.thumbView} ${
-                  currentStep === i ? styles.active : null
-                }`}
-                key={item.join('')}>
-                {list}
-              </div>
-            );
-          })}
-        </ul>
+        <div
+          className={`next ${
+            currentStep === items.length - 1 ? 'disabled' : null
+          }`}
+          onClick={clickNext}>
+          <img
+            src={next}
+            alt='click this to view next images'
+            className='icon'
+          />
+        </div>
       </div>
-    </div>
+
+      <div className='container'>
+        <div className='carousel'>
+          <SwitchTransition mode='out-in'>
+            <CSSTransition
+              key={currentStep}
+              addEndListener={(node, done) => {
+                node.addEventListener('transitionend', done, false);
+              }}
+              classNames={animate === 'next' ? 'slideLeft' : 'slideRight'}>
+              <div>
+                {items.map((item, i) => {
+                  let list = item.map((e, itemIndex) => (
+                    <li
+                      key={e}
+                      className='item'
+                      onClick={() => chooseFromThumbs(length * i + itemIndex)}>
+                      <img src={e} alt='a cat' className='thumbnail' />
+                    </li>
+                  ));
+                  return currentStep === i ? (
+                    <ul className='thumbView' key={item.join('')}>
+                      {list}
+                    </ul>
+                  ) : null;
+                })}
+              </div>
+            </CSSTransition>
+          </SwitchTransition>
+        </div>
+      </div>
+    </>
   );
 }
