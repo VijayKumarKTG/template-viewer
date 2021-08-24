@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import './App.css';
 import Carousel from './Carousel';
+import file from './images/file.svg';
 
 function App() {
   const [currentImage, setCurrentImage] = useState(0);
@@ -11,10 +12,17 @@ function App() {
     async function fetchData() {
       let response = await fetch('http://localhost:3001/images');
       let images = await response.json();
-      setLargeImages(images.items);
-      setSmallImages(images.items.map((image) => image.thumbImg));
+      let largeImgs = images.items;
+      let smallImgs = images.items.map((image) => image.regularImg);
+      largeImgs.forEach((image) => {
+        let newImage = new Image();
+        newImage.src = image.regularImg;
+      });
+
+      setLargeImages(largeImgs);
+      setSmallImages(smallImgs);
     }
-    fetchData();
+    //fetchData();
     return () => {
       //cleanup
     };
@@ -22,19 +30,35 @@ function App() {
 
   return largeImages && smallImages ? (
     <div className='App'>
-      <div className='largeImg'>
-        <img
-          src={largeImages[currentImage].regularImg}
-          alt={largeImages[currentImage].altDesc}
-        />
-      </div>
-      <div className='info'>
-        <p>Image id:{largeImages[currentImage].id}</p>
-        <p>description:{largeImages[currentImage].description}</p>
-        <p>Created on:{largeImages[currentImage].createdOn}</p>
-        <p>Photographer:{largeImages[currentImage].username}</p>
-        <p>Profile:{largeImages[currentImage].profile}</p>
-        <p>Profile image:{largeImages[currentImage].profileImg}</p>
+      <div className='imageViewer'>
+        <div className='largeImgContainer'>
+          <a
+            href={largeImages[currentImage].regularImg}
+            target='_blank'
+            rel='noreferrer'>
+            <img
+              className='largeImg'
+              src={largeImages[currentImage].regularImg}
+              alt={largeImages[currentImage].altDesc}
+            />
+          </a>
+          <div className='info'>
+            <div className='imgDetails'>
+              <p>Image id: {largeImages[currentImage].id}</p>
+              <p>description: {largeImages[currentImage].description}</p>
+              <p>Created on: {largeImages[currentImage].createdOn}</p>
+              <p>
+                Photographer:{' '}
+                <a
+                  href={largeImages[currentImage].profile}
+                  rel='noreferrer'
+                  target='_blank'>
+                  {largeImages[currentImage].username}
+                </a>
+              </p>
+            </div>
+          </div>
+        </div>
       </div>
       <Carousel
         length={4}
@@ -43,7 +67,28 @@ function App() {
       />
     </div>
   ) : (
-    'Loading...'
+    <div className='App'>
+      <div className='imageViewer'>
+        <div className='largeImgContainer sk-largeImgContainer'>
+          <div className='sk-largeImg'>
+            <img className='sk-image' src={file} alt='file icon' />
+          </div>
+          <div className='info'>
+            <div className='imgDetails sk-info'>
+              <div className='sentence'></div>
+              <div className='sentence short'></div>
+              <div className='sentence exshort'></div>
+              <div className='sentence'></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <Carousel
+        length={4}
+        thumbImgs={smallImages}
+        chooseFromThumbs={setCurrentImage}
+      />
+    </div>
   );
 }
 

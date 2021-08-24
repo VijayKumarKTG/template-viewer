@@ -4,6 +4,103 @@
   background-color: #43d5b2;
 }
 
-.largeImg {
+.largeImgContainer {
+  position: relative;
   height: 80vh;
+}
+
+.largeImg {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.info {
+  width: 100%;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.imgDetails {
+  text-align: left;
+  background-color: #ffffff;
+  color: #136e59;
+  padding: 20px;
+  width: max-content;
+}
+
+/* Skeleton Classes */
+
+.sk-largeImgContainer {
+  padding-top: 20px;
+}
+
+.sk-largeImg {
+  border-radius: 5px;
+  height: 500px;
+  width: 300px;
+  background-color: #ffffff;
+  position: relative;
+  overflow: hidden;
+  margin: auto;
+}
+
+.sk-image {
+  height: 100px;
+  width: 100px;
+  margin-top: 100px;
+}
+
+.sk-info {
+  background-color: #c4c4c4;
+}
+
+.sentence {
+  border-radius: 3px;
+  height: 10px;
+  width: 200px;
+  background-color: #ffffff;
+  position: relative;
+  overflow: hidden;
+  margin: 5px 0px;
+}
+
+.short {
+  width: 150px;
+}
+
+.exshort {
+  width: 100px;
+}
+
+.sentence::before,
+.sk-title::before,
+.sk-count::before {
+  content: '';
+  display: block;
+  position: absolute;
+  left: -150px;
+  top: 0;
+  height: 100%;
+  width: 150px;
+  background: linear-gradient(
+    to right,
+    transparent 0%,
+    #b6b6b6a1 50%,
+    transparent 100%
+  );
+  animation: load 1s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+@keyframes load {
+  from {
+    left: -150px;
+  }
+  to {
+    left: 100%;
+  }
 }

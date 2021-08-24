@@ -24,7 +24,7 @@ export default function Carousel({ length, thumbImgs, chooseFromThumbs }) {
   }
 
   function arrageData(length, array) {
-    if (length && array.length) {
+    if (length && array) {
       let arrangedArr = [],
         copiedArr = [...array];
       for (let i = 0; i < array.length; i += length) {
@@ -39,7 +39,7 @@ export default function Carousel({ length, thumbImgs, chooseFromThumbs }) {
     return [];
   }
 
-  return (
+  return items.length ? (
     <>
       <div className='container' style={{ zIndex: 5 }}>
         <div
@@ -99,5 +99,14 @@ export default function Carousel({ length, thumbImgs, chooseFromThumbs }) {
         </div>
       </div>
     </>
+  ) : (
+    <div className='container'>
+      <div className='carousel'>
+        <div className='sk-box'></div>
+        <div className='sk-box'></div>
+        <div className='sk-box'></div>
+        <div className='sk-box'></div>
+      </div>
+    </div>
   );
 }
