@@ -1,23 +1,17 @@
-.carousel {
+.container {
   position: fixed;
   bottom: 0;
   left: 0;
+  background-color: transparent;
   width: 100%;
-  background-color: #232323bd;
-  padding: 10px 0px;
-}
-
-.navigation {
-  position: absolute;
-  bottom: 0;
-  left: calc(45%);
-  width: 100px;
   display: flex;
   justify-content: center;
-  align-items: center;
-  background: #ffffff;
-  padding: 5px;
-  border-radius: 10px 10px 0px 0px;
+}
+
+.carousel {
+  padding: 10px 0px;
+  background-color: #383838;
+  width: max-content;
 }
 
 .previous {
@@ -59,20 +53,20 @@
 
 .active {
   display: flex;
+  justify-content: center;
   width: 100%;
 }
 
 .item {
   margin: 0px 10px;
   cursor: pointer;
-  width: 25%;
 }
 
 .thumbnail {
   border: 2px solid #383838;
   border-radius: 5px;
-  max-height: 100%;
-  min-width: 100%;
+  max-height: 100px;
+  min-width: 100px;
   object-fit: cover;
   vertical-align: bottom;
 }

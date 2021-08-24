@@ -64,52 +64,54 @@ export default function Carousel({ length, chooseFromThumbs }) {
   }
 
   return (
-    <div className={styles.carousel}>
-      <div className={styles.navigation}>
-        <div
-          className={`${styles.previous} ${
-            currentStep === 0 ? styles.disabled : null
-          }`}
-          onClick={clickPrevious}>
-          <img
-            src={previous}
-            alt='click this to view previous images'
-            className={styles.icon}
-          />
+    <div className={styles.container}>
+      <div className={styles.carousel}>
+        <div className={styles.container}>
+          <div
+            className={`${styles.previous} ${
+              currentStep === 0 ? styles.disabled : null
+            }`}
+            onClick={clickPrevious}>
+            <img
+              src={previous}
+              alt='click this to view previous images'
+              className={styles.icon}
+            />
+          </div>
+          <div
+            className={`${styles.next} ${
+              currentStep === items.length - 1 ? styles.disabled : null
+            }`}
+            onClick={clickNext}>
+            <img
+              src={next}
+              alt='click this to view next images'
+              className={styles.icon}
+            />
+          </div>
         </div>
-        <div
-          className={`${styles.next} ${
-            currentStep === items.length - 1 ? styles.disabled : null
-          }`}
-          onClick={clickNext}>
-          <img
-            src={next}
-            alt='click this to view next images'
-            className={styles.icon}
-          />
-        </div>
+        <ul className={styles.items}>
+          {items.map((item, i) => {
+            let list = item.map((e, itemIndex) => (
+              <li
+                key={e}
+                className={styles.item}
+                onClick={() => chooseFromThumbs(length * i + itemIndex)}>
+                <img src={e} alt='a cat' className={styles.thumbnail} />
+              </li>
+            ));
+            return (
+              <div
+                className={`${styles.thumbView} ${
+                  currentStep === i ? styles.active : null
+                }`}
+                key={item.join('')}>
+                {list}
+              </div>
+            );
+          })}
+        </ul>
       </div>
-      <ul className={styles.items}>
-        {items.map((item, i) => {
-          let list = item.map((e, itemIndex) => (
-            <li
-              key={e}
-              className={styles.item}
-              onClick={() => chooseFromThumbs(length * i + itemIndex)}>
-              <img src={e} alt='a cat' className={styles.thumbnail} />
-            </li>
-          ));
-          return (
-            <div
-              className={`${styles.thumbView} ${
-                currentStep === i ? styles.active : null
-              }`}
-              key={item.join('')}>
-              {list}
-            </div>
-          );
-        })}
-      </ul>
     </div>
   );
 }

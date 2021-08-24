@@ -3,3 +3,7 @@
   height: 100vh;
   background-color: #43d5b2;
 }
+
+.largeImg {
+  height: 80vh;
+}
