@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import styles from './App.module.css';
+import './App.css';
 import b7111 from './images/large/7111-b.jpg';
 import b7112 from './images/large/7112-b.jpg';
 import b7118 from './images/large/7118-b.jpg';
@@ -38,9 +38,14 @@ function App() {
   ];
 
   return (
-    <div className={styles.App}>
-      <div className={styles.largeImg}>
+    <div className='App'>
+      <div className='largeImg'>
         <img src={largeImgs[currentImage]} alt='a cat' />
+      </div>
+      <div className='info'>
+        <p>Name:</p>
+        <p>User:</p>
+        <p>Reference:</p>
       </div>
       <Carousel length={4} chooseFromThumbs={setCurrentImage} />
     </div>
