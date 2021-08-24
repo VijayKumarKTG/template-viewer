@@ -77,9 +77,7 @@
   width: 100px;
 }
 
-.sentence::before,
-.sk-title::before,
-.sk-count::before {
+.sentence::before {
   content: '';
   display: block;
   position: absolute;

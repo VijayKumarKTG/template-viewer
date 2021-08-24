@@ -14,15 +14,14 @@ function App() {
       let images = await response.json();
       let largeImgs = images.items;
       let smallImgs = images.items.map((image) => image.regularImg);
-      largeImgs.forEach((image) => {
+      smallImgs.forEach((image) => {
         let newImage = new Image();
-        newImage.src = image.regularImg;
+        newImage.src = image;
       });
-
       setLargeImages(largeImgs);
       setSmallImages(smallImgs);
     }
-    //fetchData();
+    fetchData();
     return () => {
       //cleanup
     };
@@ -46,7 +45,10 @@ function App() {
             <div className='imgDetails'>
               <p>Image id: {largeImages[currentImage].id}</p>
               <p>description: {largeImages[currentImage].description}</p>
-              <p>Created on: {largeImages[currentImage].createdOn}</p>
+              <p>
+                Created on:{' '}
+                {new Date(largeImages[currentImage].createdOn).toUTCString()}
+              </p>
               <p>
                 Photographer:{' '}
                 <a

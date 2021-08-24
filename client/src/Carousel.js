@@ -101,7 +101,7 @@ export default function Carousel({ length, thumbImgs, chooseFromThumbs }) {
     </>
   ) : (
     <div className='container'>
-      <div className='carousel'>
+      <div className='carousel sk-carousel'>
         <div className='sk-box'></div>
         <div className='sk-box'></div>
         <div className='sk-box'></div>

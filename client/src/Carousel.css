@@ -114,3 +114,47 @@
 .slideRight-exit-active .thumbView {
   transition: opacity 300ms, transform 300ms;
 }
+
+/* Skeleton loading classes */
+.sk-carousel {
+  width: max-content;
+  height: 140px;
+  background-color: #383838;
+  border-radius: 3px 3px 0px 0px;
+}
+
+.sk-box {
+  width: 100px;
+  height: 100px;
+  background-color: #ffffff;
+  margin: 10px;
+  border-radius: 5px;
+  position: relative;
+  overflow: hidden;
+}
+
+.sk-box::before {
+  content: '';
+  display: block;
+  position: absolute;
+  left: -150px;
+  top: 0;
+  height: 100%;
+  width: 150px;
+  background: linear-gradient(
+    to right,
+    transparent 0%,
+    #b6b6b6a1 50%,
+    transparent 100%
+  );
+  animation: load 1s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+@keyframes load {
+  from {
+    left: -150px;
+  }
+  to {
+    left: 100%;
+  }
+}
