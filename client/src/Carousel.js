@@ -4,7 +4,12 @@ import './Carousel.css';
 import previous from './images/previous.svg';
 import next from './images/next.svg';
 
-export default function Carousel({ length, thumbImgs, chooseFromThumbs }) {
+export default function Carousel({
+  length,
+  thumbImgs,
+  chooseFromThumbs,
+  activeImage,
+}) {
   const [currentStep, setCurrentStep] = useState(0);
   const [animate, setAnimate] = useState('next');
   const items = arrageData(length, thumbImgs);
@@ -83,7 +88,15 @@ export default function Carousel({ length, thumbImgs, chooseFromThumbs }) {
                           onClick={() =>
                             chooseFromThumbs(length * i + itemIndex)
                           }>
-                          <img src={e} alt='a cat' className='thumbnail' />
+                          <img
+                            src={e}
+                            alt='a cat'
+                            className={
+                              activeImage === e
+                                ? 'thumbnail active'
+                                : 'thumbnail'
+                            }
+                          />
                         </li>
                       ));
                       return currentStep === i ? (

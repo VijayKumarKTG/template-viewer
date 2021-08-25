@@ -44,7 +44,8 @@ function App() {
           <div className='info'>
             <div className='imgDetails'>
               <p>Image id: {largeImages[currentImage].id}</p>
-              <p>description: {largeImages[currentImage].description}</p>
+              <p>title: {largeImages[currentImage].description}</p>
+              <p>description: {largeImages[currentImage].altDesc}</p>
               <p>
                 Created on:{' '}
                 {new Date(largeImages[currentImage].createdOn).toUTCString()}
@@ -66,6 +67,7 @@ function App() {
         length={4}
         thumbImgs={smallImages}
         chooseFromThumbs={setCurrentImage}
+        activeImage={largeImages[currentImage].regularImg}
       />
     </div>
   ) : (

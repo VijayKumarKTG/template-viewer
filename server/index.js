@@ -21,9 +21,7 @@ function filterResponseImgs(images) {
       createdOn: image['created_at'],
       username: image.user.name,
       profile: image.user.links.html,
-      profileImg: image.user['profile_image'].small,
       regularImg: image.urls.regular,
-      thumbImg: image.urls.thumb,
     });
   });
   return newImagesArr;

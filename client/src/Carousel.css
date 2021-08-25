@@ -57,12 +57,15 @@
 }
 
 .thumbnail {
-  border: 2px solid #383838;
   border-radius: 5px;
   max-height: 100px;
   max-width: 100%;
   object-fit: cover;
   vertical-align: bottom;
+}
+
+.active {
+  border: 3px solid #ffffff;
 }
 
 .slideLeft-enter .thumbView {
